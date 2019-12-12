@@ -1,0 +1,36 @@
+<div class="row pt-5">
+    <div class="col-md-6 mx-auto">
+        <div class="card rounded-0">
+            <div class="card-header">
+                <h3 class="mb-0">Register</h3>
+            </div>
+            <div class="card-body">
+                <form class="form">
+                    <div class="form-group" [ngClass]="{'was-validated': submitted}">
+                        <label for="email">Email</label>
+                        <input [(ngModel)]="registerUserData.email" name="email" type="text" 
+                        class="form-control rounded-0" [ngClass]="{'is-invalid': emailExist}" required pattern="(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)">                
+                        <!-- <small class="form-text text-muted" *ngIf="!submitted">Enter a valid email address</small> -->
+                        <span class="invalid-feedback" *ngIf="!emailExist"> Email is not valid</span>
+                        <span class="invalid-feedback" *ngIf="emailExist"> Email exists</span>
+                    </div>
+                    <div class="form-group" [ngClass]="{'was-validated': submitted}">
+                        <label for="password">Password</label>
+                        <input [(ngModel)]="registerUserData.password" name="password" id="password" type="password"
+                        class="form-control rounded-0" required pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d).*" minlength="6" #password="ngModel">
+                        <small class="form-text text-muted" *ngIf="!submitted">contain 6 chars, upper/lower case and number </small>
+                        <span class="invalid-feedback">At least 6 chars with upper/lower case letter and number</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Confirmed Password</label>
+                        <input [(ngModel)]="confirmedPassword" name="confPassword" type="password" class="form-control rounded-0 is-invalid" 
+                        [ngClass]="{'is-invalid': confirmedPassword != registerUserData.password && submitted}" required>
+                        <!-- <small class="form-text text-muted" *ngIf="!submitted">re-enter password </small> -->
+                        <span class="invalid-feedback">Confirmed password must be the same as password</span>
+                    </div>
+                    <button (click)="registerUser(); submitted = true" type="button" class="btn btn-outline-primary float-right">Register</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
